@@ -1,0 +1,15 @@
+spring: 
+ profiles: 
+  active: 
+  - dev
+---
+spring:
+ profiles: dev		# 开发环境
+ appication:
+  name: effect-config-dev
+---
+spring:
+ profiles: test		# 测试环境
+ application:
+  name: effect-config-test
+# UTF-8 格式
