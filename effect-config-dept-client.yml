@@ -1,0 +1,51 @@
+# 本工程的配置文件 springboot 默认加载该名称的文件
+spring:
+ profiles:
+  active:
+   - dev
+
+---
+server:
+  port: 8001
+
+spring:
+  profiles: dev
+  application:
+    name: effect-dept                                            # 项目发布后的项目名称
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource                      # 当前数据源操作类型
+    driver-class-name: com.mysql.jdbc.Driver                          # mysql 驱动包
+    url: jdbc:mysql://39.105.38.61:3306/cloudDB01                     # 数据库名称
+    username: root
+    password: sqqroot
+    dbcp2:
+      min-idle: 5                                                     # 数据库连接池的最小维持连接数
+      initial-size: 5                                                 # 初始化连接数
+      max-total: 5                                                    # 最大连接数
+      max-wait-millis: 200                                            # 等待连接获取的最大超时时间
+
+mybatis:
+  config-location: classpath:mybatis/mybatis.cfg.xml                  # mybatis 配置文件所在路径
+  type-aliases-package: com.sq.effect-api.entities                    # 所有 Entity 别名类所在包
+  mapper-locations:
+    - classpath:mybatis/mapper/**/*-mapper.xml                               # mapper 映射文件 可以用配置的方式实现，也可以用注解的方式实现
+
+eureka:
+  client:                                                             # 客户端注册进 eureka 服务列表
+    service-url:
+      defaultZone: http://eureka7003.com:7003/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7001.com:7001/eureka/
+  instance:
+    # 某时刻某微服务不可用了， eureka 不会立刻清理，依旧会对该微服务的信息进行保存, 90(default)秒后清理
+    instance-id: effect-dept-8001                                     # 实例 ID，在 eureka 服务注册中心 status 显示的名称
+    prefer-ip-address: true                                           # 访问路径可以显示IP地址
+
+info:
+  app.name: dept-8001
+  company.name: www.sq.com
+  build.artifactId: $project.artifactId$                              # 配置在 父项目effect pom
+  build.version: $project.version$
+
+
+
+
+
